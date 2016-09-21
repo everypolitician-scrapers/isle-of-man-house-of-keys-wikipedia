@@ -27,6 +27,7 @@ def scrape(url)
     tds = tr.css('td')
     constituency = tds.shift if tds.count == 3
 
+    next if tds[0].text.strip == 'Vacant'
     data = {
       id: idify(tds[0].css('a')),
       name: tds[0].text.strip,
