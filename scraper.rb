@@ -11,12 +11,12 @@ require 'open-uri/cached'
 OpenURI::Cache.cache_path = '.cache'
 
 def noko_for(url)
-  Nokogiri::HTML(open(url).read) 
+  Nokogiri::HTML(open(url).read)
 end
 
 def idify(a)
   name = a.xpath('./@class').text == 'new' ? a.text : a.attr('title').value
-  name.tr(' ','-').downcase
+  name.tr(' ', '-').downcase
 end
 
 def scrape(url)
@@ -27,14 +27,14 @@ def scrape(url)
     tds = tr.css('td')
     constituency = tds.shift if tds.count == 3
 
-    data = { 
+    data = {
       id: idify(tds[0].css('a')),
       name: tds[0].text.strip,
       wikipedia__en: tds[0].xpath('a[not(@class="new")]/@title').text.strip,
       area: constituency.text,
       party: tds[1].text,
       term: '2011',
-      source: url,
+      source: url
     }
     ScraperWiki.save_sqlite([:id, :term], data)
   end
