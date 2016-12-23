@@ -1,5 +1,6 @@
 #!/bin/env ruby
 # encoding: utf-8
+# frozen_string_literal: true
 
 require 'scraperwiki'
 require 'nokogiri'
@@ -29,15 +30,15 @@ def scrape(url)
 
     next if tds[0].text.strip == 'Vacant'
     data = {
-      id: idify(tds[0].css('a')),
-      name: tds[0].text.strip,
+      id:            idify(tds[0].css('a')),
+      name:          tds[0].text.strip,
       wikipedia__en: tds[0].xpath('a[not(@class="new")]/@title').text.strip,
-      area: constituency.text,
-      party: tds[1].text,
-      term: '2011',
-      source: url,
+      area:          constituency.text,
+      party:         tds[1].text,
+      term:          '2011',
+      source:        url,
     }
-    ScraperWiki.save_sqlite([:id, :term], data)
+    ScraperWiki.save_sqlite(%i(id term), data)
   end
 end
 
