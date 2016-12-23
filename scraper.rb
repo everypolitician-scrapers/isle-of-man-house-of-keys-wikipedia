@@ -35,6 +35,7 @@ def scrape(url)
       area: constituency.text,
       party: tds[1].text,
       term: '2011',
+      source: url,
     }
     ScraperWiki.save_sqlite([:id, :term], data)
   end
