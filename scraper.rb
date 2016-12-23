@@ -43,4 +43,4 @@ def scrape(url)
 end
 
 ScraperWiki.sqliteexecute('DELETE FROM data') rescue nil
-scrape('https://en.wikipedia.org/wiki/House_of_Keys')
+scrape('https://en.wikipedia.org/w/index.php?title=House_of_Keys&oldid=743685692')
