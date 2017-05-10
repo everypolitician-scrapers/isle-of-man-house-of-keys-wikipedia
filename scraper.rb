@@ -42,5 +42,5 @@ def scrape(url)
   end
 end
 
-ScraperWiki.sqliteexecute('DELETE FROM data') rescue nil
+ScraperWiki.sqliteexecute('DROP TABLE data') rescue nil
 scrape('https://en.wikipedia.org/w/index.php?title=House_of_Keys&oldid=743685692')
