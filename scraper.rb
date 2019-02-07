@@ -2,12 +2,11 @@
 # encoding: utf-8
 # frozen_string_literal: true
 
-require 'scraperwiki'
 require 'nokogiri'
-require 'open-uri'
-require 'uri'
-
 require 'pry'
+require 'scraped'
+require 'scraperwiki'
+
 require 'open-uri/cached'
 OpenURI::Cache.cache_path = '.cache'
 
@@ -31,10 +30,10 @@ def scrape(url)
     next if tds[0].text.strip == 'Vacant'
     data = {
       id:            idify(tds[0].css('a')),
-      name:          tds[0].text.strip,
-      wikipedia__en: tds[0].xpath('a[not(@class="new")]/@title').text.strip,
-      area:          constituency.text,
-      party:         tds[1].text,
+      name:          tds[0].text.tidy,
+      wikipedia__en: tds[0].xpath('a[not(@class="new")]/@title').text.tidy,
+      area:          constituency.text.tidy,
+      party:         tds[1].text.tidy,
       term:          '2011',
       source:        url,
     }
